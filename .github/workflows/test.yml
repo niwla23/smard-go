@@ -9,10 +9,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set timezome
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Europe/Berlin"
+          
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version: 1.19
+
+      - name: "check formatting"
+        uses: Jerome1337/gofmt-action@v1.0.4
+        with:
+          gofmt-path: '.'
+          gofmt-flags: '-l -d'
 
       - name: Build
         run: go build -v ./...
